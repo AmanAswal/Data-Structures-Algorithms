@@ -1,0 +1,99 @@
+#include<iostream>
+#define MAX_SIZE 101
+
+using namespace std;
+
+class Queue
+{
+private:
+	int A[MAX_SIZE];
+	int front, rear;
+public:
+	Queue()
+	{
+		front = -1;
+		rear = -1;
+	}
+
+	bool isEmpty()
+	{
+		return ( front == -1 && rear == -1);
+	}
+
+	bool isFull()
+	{
+		return ( rear == MAX_SIZE - 1);
+	}
+	
+	void enqueue(int x)
+	{
+		if ( isFull())
+		{
+			cout<<"Queue is full\n";
+			return;	
+		}
+		else if ( isEmpty())
+		{
+			front = 0;
+			rear = 0;
+		}
+		else 
+		{
+			rear = rear + 1;
+		}
+		A[rear] = x;
+	}
+
+	void dequeue()
+	{
+		if ( isEmpty())
+		{
+			cout<<"Queue is Empty\n";
+			return;
+		}
+		else if ( front == rear)
+		{
+			rear = front = -1;
+		} 
+		else 
+		{
+
+			front = front + 1;
+		}
+	}
+
+	void print()
+	{
+		cout<<"Queue: ";
+		for(int i=front; i<=rear; i++)
+		{
+			cout<<A[i]<<" ";
+		}
+		cout<<endl;
+	}	
+
+	int Front()
+	{
+		if ( front == -1)
+		{
+			cout<<"Error: cannot return front from empty Queue\n";
+			return -1;
+		}
+		cout<<"front element is: ";
+		return A[front];
+	}
+
+};
+
+int main()
+{
+	Queue Q;
+	Q.enqueue(2); Q.print();
+	Q.enqueue(3); Q.print();
+	Q.enqueue(4); Q.print();
+	Q.dequeue(); Q.print();
+	Q.dequeue(); Q.print();
+
+	Q.Front(); Q.print();
+	return 0;
+}
