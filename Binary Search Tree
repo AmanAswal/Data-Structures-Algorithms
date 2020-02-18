@@ -1,0 +1,115 @@
+#include<iostream>
+
+using namespace std;
+
+class bstNode
+{
+public:
+	int data;
+	bstNode* left;
+	bstNode* right;
+};
+bstNode* root;
+
+bstNode* getNewNode (int data)
+{
+	bstNode* newNode = new bstNode();
+	newNode -> data = data;
+	newNode -> left = NULL;
+	newNode -> right = NULL;
+	return newNode;
+}
+
+bstNode* insert(bstNode* root, int data)
+{
+	if (root == NULL)
+	{
+		root = getNewNode(data);
+	}
+	else if (data <= root -> data)
+	{
+		root -> left = insert(root -> left, data); 
+	}
+	else
+	{
+		root -> right = insert(root -> right, data);
+	}
+	return root;
+}
+
+bool search (bstNode* root, int data)
+{
+	if ( root == NULL)
+		return false;
+	if (root -> data == data)
+		return true;
+	else if (data <= root->data)
+		return search(root -> left, data);
+	else 
+		 return search(root->right, data);
+}
+
+
+int findMin(bstNode* root)
+{
+	if(root == NULL)
+	{
+		cout<<"tree is empty\n";
+		return -1;
+	}	
+	while( root -> left != NULL)
+	{
+		root = root -> left;
+	}	
+
+	return root->data;
+}
+
+ int findMax(bstNode* root)
+{
+	if(root == NULL)
+	{
+		cout<<"tree is empty\n";
+		return -1;
+	}	
+	while( root -> right != NULL)
+	{
+		root = root -> right;
+	}	
+
+	return root->data;
+}
+
+int findHeight(bstNode* root)
+{
+	if(root == NULL)
+		return -1;
+	return max(findHeight(root -> left), findHeight(root->right)) + 1;
+}
+ 
+int main()
+{	 
+	bstNode* root = NULL; // creating an empty tree
+	root = insert(root,15);
+	root = insert(root,10);
+	root = insert(root,20);
+	root = insert(root,25);
+	root = insert(root,8);
+	root = insert(root,12);
+	findMin(root);
+	findHeight(root);
+
+
+	int number;
+	cout<<"Enter number to be searched: ";
+	cin>>number;
+	if(search(root, number) == true)
+		cout<<"FOUND\n";
+	else
+		cout<<"NOT FOUND\n";
+
+	cout<<"Minimum Number is: "<<findMin(root)<<"\n";
+	cout<<"Maximum Number is: "<<findMax(root)<<endl;
+	cout<<"Height of the tree is: "<<findHeight(root)<<endl;
+	return 0;
+}
