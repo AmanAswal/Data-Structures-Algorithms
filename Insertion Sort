@@ -1,0 +1,52 @@
+#include<iostream>
+
+using namespace std;
+
+void insertionSort(int A[], int n) // function of INSERTION SORT
+{
+	for (int i=1; i<n-1;i++)
+	{
+		int value = A[i];
+		int index = i;
+		while( index>0 && A[index-1] > value)
+		{
+			A[index] = A[index-1];
+			index = index-1;
+		}	
+		A[index] = value;
+
+	}
+}
+
+void printArray(int A[], int n)  // Function for printing elements of sorted array
+{
+	cout<<"The sorted array using Selection Sorting is: ";
+	for( int i=0;i<n-1; i++)
+	{
+		cout<<A[i]<<" ";
+	}
+}
+
+void insertArray(int A[], int n)  // Function for inserting elements in an array
+{
+	cout<<"Enter the elements: \n";
+	for( int i=0;i<n-1;i++)
+	{
+		cin>>A[i];
+	}
+}
+
+int main()
+{
+	int n;
+	cout<<"Enter the number of elements: ";
+	cin>>n;
+
+	int A[n];
+	insertArray(A,n);
+	insertionSort(A, n);
+	printArray(A,n);
+
+
+	return 0;
+}
